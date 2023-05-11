@@ -1,6 +1,6 @@
 
 import React from 'react';
- import { nanoid } from 'nanoid'
+import { nanoid } from 'nanoid'
 import ContactForm from 'components/FormPhonebook/ContactForm'
 import ContactList from 'components/ContactList/ContactList';
 import Filter from 'components/Filter/Filter';
@@ -14,20 +14,12 @@ export class App extends React.Component{
     {id: 'id-4', name: 'Annie Copeland', number: '227-91-26'},
   ],
     filter: '',
-    // name: '',
-    // number: '',
     }  
     
-    // handelChange = (e) =>{
-    //   const { name, value} = e.target;
-    //   this.setState({ [name]: value });  
-    //   console.log(this.state);
-    // }
     handleSubmit = (data) => {
       const sameName = this.state.contacts
         .map((cont) => cont.name)
         .includes(data.name);
-  
       if (sameName) {
         alert(`${data.name} is already in contacts`);
       } else {
@@ -51,22 +43,22 @@ export class App extends React.Component{
       const normalizedFilter = filter.toLowerCase();
       return contacts.filter(contact => contact.name.toLowerCase().includes(normalizedFilter));
     }
+    deleteTodo = todoId =>{
+      this.setState(prevState =>({
+      contacts: prevState.contacts.filter(contact=>contact.id !== todoId),
+    }));}
 
     render(){
-      const {filter} = this.state
+    const {filter} = this.state
     const visibleContacts = this.getVisibleContats()
 
-  return (<div>
+    return (<div>
       <h1>Phonebook</h1>
       <ContactForm onSubmitForm={this.handleSubmit}/>
-      <h2>Contacts</h2>
-     
+      <h2>Contacts</h2> 
       <Filter value={filter} onChangeFilter={this.changeFilter}/>
-      <ContactList contacts={visibleContacts}/>
-
-    </div>)
-  
-    }
-     
+      <ContactList contacts={visibleContacts} onDeleteTodo={this.deleteTodo}/>
+    </div>) 
+    }    
 }
 
