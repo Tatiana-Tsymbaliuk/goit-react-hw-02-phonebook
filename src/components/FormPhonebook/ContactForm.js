@@ -37,7 +37,7 @@ export default class ContactForm extends React.Component{
   required
 />
             </label>
-           <button>Add contact</button> 
+           <button type='submit'>Add contact</button> 
             </form> 
      )}
 }

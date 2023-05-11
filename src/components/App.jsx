@@ -3,6 +3,8 @@ import React from 'react';
 import { nanoid } from 'nanoid'
 import ContactForm from 'components/FormPhonebook/ContactForm'
 import ContactList from 'components/ContactList/ContactList';
+import Filter from 'components/Filter/Filter';
+
 export class App extends React.Component{
   state = {
     contacts: [
@@ -21,23 +23,31 @@ export class App extends React.Component{
       this.setState({ [name]: value });  
       console.log(this.state);
     }
-    handleSubmit = (e) => {
-      //const { name, value} = e.target;
+    handleSubmit = () => {
       this.setState({contacts:[...this.state.contacts,{ id: nanoid(), name: this.state.name, number: this.state.number}]});  
       console.log(this.state); 
     };
-    // getContats =()=>{
-    //  const {contacts}=this.state;
-    //  console.log(contacts);
-    // }
+    changeFilter =(e)=>{
+      this.setState({filter:e.currentTarget.value})
+    }
+    getVisibleContats =()=>{
+      const {contacts, filter} = this.state
+      console.log(this.state); 
+      const normalizedFilter = filter.toLowerCase();
+      return contacts.filter(contact => contact.name.toLowerCase().includes(normalizedFilter));
+    }
 
     render(){
-     console.log(this.state);  
+      const {filter} = this.state
+    const visibleContacts = this.getVisibleContats()
+
   return (<div>
       <h1>Phonebook</h1>
       <ContactForm onChangeState={this.handelChange} onSubmitForm={this.handleSubmit}/>
       <h2>Contacts</h2>
-      <ContactList contacts={this.state.contacts}/>
+     
+      <Filter value={filter} onChangeFilter={this.changeFilter}/>
+      <ContactList contacts={visibleContacts}/>
 
     </div>)
   
