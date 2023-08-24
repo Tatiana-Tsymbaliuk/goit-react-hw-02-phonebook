@@ -10,7 +10,6 @@ state={
 handelChange = (e) =>{
   const { name, value} = e.target;
   this.setState({ [name]: value });  
-  //console.log(this.state);
 }
    handelSubmitForm=(e)=>{
     e.preventDefault();
@@ -20,7 +19,6 @@ handelChange = (e) =>{
  render(){  
 
    const {name, number}=this.state
-    //  const {onChangeState}=this.props
        return( 
      <form onSubmit={this.handelSubmitForm} className='formData'>
             <label className='formDataLabel'>Name

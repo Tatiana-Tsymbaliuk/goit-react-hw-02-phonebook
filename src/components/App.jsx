@@ -28,12 +28,6 @@ export class App extends React.Component{
         }));
       }
     };
-    // () => {
-    //   const {name, number} = this.state
-    //   this.setState({contacts:[...this.state.contacts,{ id: nanoid(), name: name, number: number}]});  
-    //   console.log(this.state); 
-    // };
-    
     changeFilter =(e)=>{
       this.setState({filter:e.currentTarget.value})
     }
